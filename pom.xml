@@ -83,6 +83,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <configuration>
           <mainClass>net.chaosserver.timelord.swingui.Timelord</mainClass>
           <iconFile>${basedir}/src/main/resources/timelord.icns</iconFile>
+          <javaApplicationStub>${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
           <jvmVersion>1.5+</jvmVersion>
         </configuration>
         <executions>
