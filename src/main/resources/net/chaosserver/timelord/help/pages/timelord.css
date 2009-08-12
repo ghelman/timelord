@@ -1,0 +1,237 @@
+html {
+  font-family: georgia, serif;
+  font-size: 90%;
+}
+
+div.story p {
+   line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: verdana, sans-serif;
+}
+
+
+p.code {
+  font-family: monospace;
+}
+
+p.pictures {
+    text-align: center;
+}
+
+p.ads {
+    text-align: center;
+}
+
+img {
+  border-width: 0cm
+}
+
+img.right {
+  border-width: 1cm;
+  text-align: right;
+}
+
+/** Table of Contents Formatting **/
+/* The main div around the entire table of contents */
+
+/*
+ Winter: background-color: #D4E9F5;
+ Summer: background-color: #ADDFA8;
+ Valentine: background-color: #F49090;
+ St. Patricks Days: background-color: #BBEE77;
+ Purple: background-color: #B3B3F1;
+*/
+div.toc {
+  font-size: 90%;
+  float: right;
+  width: 15%;
+  display: block;
+  background-color: #B3B3F1;
+  padding: 0%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+}
+
+/* This is the heading for each "section" */
+/*
+ Winter: 
+  color: #FFFFFF;
+  background-color: #B3BCFF;
+ Summer:
+  color: #FFFFFF;
+  background-color: #3C9632;
+ Valentine: 
+  color: #FFFFFF;
+  background-color: #D85E6A;
+ St. Patricks Days: 
+  color: #FFFFFF;
+  background-color: #447700;
+ Purple: background-color: #8A67AD;
+*/
+
+div.toc h2 {
+  width: 100%;
+  color: #FFFFFF;
+  background-color: #8A67AD;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  padding-left: 0;
+  font-size: 125%;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* This is the list */
+div.toc ul {
+  list-style-type: none;
+  margin-bottom:.5ex;
+  margin-left: .5em;
+  margin-right: .5em;
+  margin-top: .5ex;
+  padding-left: 0em;
+  padding-right: 0em;
+}
+
+div.toc li {
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+div.toc li:hover {
+    background: #FFFFFF;
+}
+div.toc a {
+    text-decoration: none;
+}
+
+/** End: Table of Contents Formatting */
+
+
+blockquote {
+  font-style: italic;
+}
+
+div.right {
+  float: right;
+}
+
+/** Main Header Section for page */
+div.page-header {
+  float: top;
+  margin-bottom: 1%;
+  border-bottom-width: medium;
+  border-bottom-style: ridge;
+}
+
+/** Main Footer Section for page */
+div.page-footer {
+  border-top-width: medium;
+  border-top-style: ridge;
+  margin-top: 1%;
+  float: left;
+  width: 100%
+}
+
+div.quote {
+  font-style: italic;
+}
+
+
+div.main-content {
+  width: 80%;
+  float: left;
+}
+
+div.main-content h1 {
+  font-weight: bold;
+  font-size: 200%;
+  text-align: center;
+  border-bottom-width: thin;
+  border-bottom-style: solid;
+  margin-bottom: 1%;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/*
+ Summer:
+   color: #FFFFFF;
+   background-color: #3C9632;
+ Autumn:
+   color: 
+ Winter: 
+   color: #000000;
+   background-color: #B3BCFF;
+ Valentine: 
+   color: #000000;
+   background-color: #D85E6A;
+ St. Patricks Days: 
+   color: #FFFFFF;
+   background-color: #447700;
+*/
+div.story h2 {
+  color: #000000;
+  background-color: #B3B3F1;
+  text-align: left;
+  font-weight: bold;
+  font-size: 120%;
+  margin-top: 0%;
+  margin-left: -2%;
+  padding-top: .1ex;
+  padding-bottom: .3ex;
+  padding-left: 1%;
+  border: thin outset;
+}
+
+div.story {
+  margin-left: 2%;    
+}
+
+div.story p.quote {
+    line-height: 1;
+    text-decoration: none;
+    width: 25%;
+    background-color: #DDDDDD;
+    margin: 0% 2% 1% 2%;
+    padding: 1% 1% 1% 1%;
+    border: thin outset;
+    float: right;
+}
+div.story p.quote q {
+    font-style: normal;
+}
+div.story p.quote q:before { 
+    content: no-open-quote; 
+}
+div.story p.quote q:after { 
+    content: no-close-quote; 
+}
+div.story p.quote:first-letter {
+    font-size: 200%;
+    float: left;
+    margin-right: 0.2em;
+}
+
+
+q {
+    font-style: italic;
+}
+
+
+a.rssbutton {
+  padding: .1ex .2em .1ex .2em;
+  font-size: 90%;
+  border-style: groove;
+  border-width: thin;
+  border-color: black;
+  text-decoration: none;
+  background:#f90; 
+  color:white;
+  font-family: monotype;
+}

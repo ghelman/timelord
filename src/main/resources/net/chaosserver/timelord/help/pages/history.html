@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>Timelord History</title>
+    <link rel="stylesheet" type="text/css" href="timelord.css"></link>
+  </head>
+  <body>
+    <h1>History of Changes to Timelord</h1>
+
+    <div class="story">
+      <h2>Known Issues</h2>
+      <ul>
+        <li>If timelord is on a secondary display when closed that is not attached when next opened, it appears off screen</li>
+        <li>When tracking time to a new day when the system is set to a different timezone than the standard causes unexpected results</li>
+		<li>Bug #2 – When I export “Jordan” style I get many tabs.  All the way back to 7/30/2007 even though I only have data entered for today and yesterday...</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>Enhancement Requests</h2>
+      <ul>
+        <li>Make mimimum annoy intervals configurable</li>
+        <li>Put in SysTray</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>2.2 (06/22/2008)</h2>
+      <ul>
+        <li>Daily backups are gzipped</li>
+        <li>Excel Export Allows you to pick a range.</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>2.1 (12/08/2007)</h2>
+      <ul>
+        <li>"File->Exit" and "Help->About" go away in OSX</li>
+        <li>Mac Quit and Command-Q properly save the file</li>
+        <li>Changed the "set time" popup to be dropdowns instead of one big text box</li>
+        <li>The "set time" popup appears the first time the app is opened each day</li>
+        <li>Fixed the Save dialog to show the system interface in OSX Leopard</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>2.0 (10/21/2007)</h2>
+      <ul>
+        <li>Renamed to Timelord, because we all the love The Doctor.</li>
+        <li>If no time is tracked yet, the "change start time" dialog appears on start</li>
+        <li>Switched week start date to match project central.</li>
+        <li>Added a beta Eye Candy tab to show some graphs</li>        
+      </ul>
+    </div>
+    <div class="story">
+      <h2>1.5 (06/15/2006)</h2>
+      <ul>
+        <li>Jordan Annoyance Mode no longer hides the tracked time drops below 15 minutes.</li>
+        <li>Doug Annoyance Mode still annoys every fifteen minutes, but must have at least fifteen minutes untracked.</li>
+        <li>Added headers to Doug-style Excel Export (helps with AutoFilter).</li>
+        <li>After a date is selected in previous day, have something showing the date.</li>
+        <li>Add a total bar to previous day panels.</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>1.4 (04/06/2006)</h2>
+      <ul>
+        <li>(bugfix) Resolved an issue with "remainder" not being updated when it is less than one hour</li>
+        <li>Added a dialog for "Add Time" that allows to add time to any task, including hidden.</li>
+        <li>Added keyboard shortcuts for Add Task/Add Time/Unhide Task</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>1.3 (03/23/2006)</h2>
+      <ul>
+        <li>Hidden tasks with hours now display and in italics</li>
+        <li>Previous day tab always starts with yesterday</li>
+        <li>Previous day tab displays date it is showing</li>
+        <li>Previous day tab contains a total value</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>1.2</h2>
+      <ul>
+        <li>(bugfix) Huge memory leak that occurred during task hide/show/add/del resolved</li>
+        <li>Empty tasks in Jordan Style export are now hidden (row height = 0)</li>
+        <li>The export FileDialog filters based on type.</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h2>1.1 - 1/11/2005</h2>
+      <ul>
+        <li>(bugfix) Jordan-style Export for data that spans multiple years fails</li>
+        <li>(bugfix) The button background color is not alternating on the MacUI</li>
+        <li>Added feature to allow export to specified location and file.</li>
+        <li>Changed to AutoSave once every 15 minutes (instead of every click)</li>
+        <li>Added ability to save raw xml from non-standard location</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>1.0 - 12/19/2005</h2>
+      <ul>
+        <li>(bugfix) The Jordan Style sheets are out of order</li>
+        <li>(bugfix) On the "previous day" pane, once a date is selected it cannot be changed.</li>
+        <li>(bugfix) When select a previous day, the buttons are not disabled on load.</li>
+        <li>(bugfix) The Excel exports do not open Excel on the mac.</li>
+        <li>Add a mac-specific bundling package</li>
+        <li>Put notes in the Jordan style export</li>
+        <li>If a date is already selected, the Calendar should already be on that date.</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>RC6 - 11/21/2005</h2>
+      <ul>
+        <li>(bugfix) Resolved an issue where the first time it is opened on a day the totals are not updated.</li>
+        <li>(bugfix) All rows (even empty) on Jordan export now have left/right borders.</li>
+        <li>Added the first cut at a help system.</li>
+        <li>Creates backup of time file each day.</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>RC5 - 11/14/2005</h2>
+      <ul>
+        <li>Add ability to change the start time for a day</li>
+        <li>Window un-minizes when annoying you</li>
+        <li>Auto-sort on adding task</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>RC4 - 11/14/2005</h2>
+      <ul>
+        <li>Added a lock file to stop running two instances</li>
+        <li>Added confirm dialog to delete tasks</li>
+        <li>Made comment field a text area</li>
+        <li>Fixed spelling mistakes in the tool tips</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>RC3 - 11/09/2005</h2>
+      <ul>
+        <li>Added Doug Annoyance Style</li>
+        <li>Added Doug export style</li>
+        <li>Added Alternating task colors</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>RC2 - 11/08/2005</h2>
+      <ul>
+        <li>Fixed the Edit Task Note Item</li>
+      </ul>
+    </div>
+
+    <div class="story">
+      <h2>RC1 - 11/08/2005</h2>
+      <ul>
+        <li>Initial Release</li>
+      </ul>
+    </div>
+
+  </body>
+</html>

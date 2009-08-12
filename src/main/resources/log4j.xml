@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+           <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern"
+            value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+           </layout>
+    </appender>
+
+    <!--
+    <appender name="FILEOUT" class="org.apache.log4j.FileAppender">
+           <param name="File" value="c:/Timelord-debug.log"/>
+           <param name="Append" value="false"/>
+           <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern"
+            value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+           </layout>
+    </appender>
+
+
+    <category name="net.chaosserver.timelord" additivity="false">
+        <priority value="all"/>
+        <appender-ref ref="FILEOUT"/>
+    </category>
+
+    <category name="net.chaosserver.timelord.swingui.ChartingPanel" additivity="false">
+        <priority value="all"/>
+        <appender-ref ref="STDOUT"/>
+    </category>
+    -->
+
+
+
+
+
+    <root>
+       <priority value = "warn" />
+       <appender-ref ref="STDOUT" />
+    </root>
+
+</log4j:configuration>

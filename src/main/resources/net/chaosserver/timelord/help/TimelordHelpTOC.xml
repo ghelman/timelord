@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 2.0//EN"
+         "../dtd/toc_2_0.dtd">
+<toc version="2.0">
+<tocitem text="Timelord" target="timelord.intro">
+   <tocitem text="QuickStart Guide" target="timelord.quickstart"/>
+   <tocitem text="Timelord History" target="timelord.history"/>
+   <tocitem text="Timelord FAQ" target="timelord.faq"/>
+   <tocitem text="License" target="timelord.license"/>
+</tocitem>
+</toc>

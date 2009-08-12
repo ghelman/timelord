@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE map
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/map_1_0.dtd">
+
+<map version="1.0">
+	<mapID target="timelord.intro" url="pages/timelord.html" />
+	<mapID target="timelord.quickstart" url="pages/quickstart/index.html" />
+	<mapID target="timelord.faq" url="pages/faq.html" />
+	<mapID target="timelord.history" url="pages/history.html" />
+	<mapID target="timelord.license" url="pages/license/index.html" />
+</map>
