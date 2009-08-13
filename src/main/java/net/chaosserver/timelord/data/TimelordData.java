@@ -192,11 +192,18 @@ public class TimelordData implements Serializable,
 
     /**
      * Gets back the time zone associated with all the data.
+     *
+     * @return the timezone associated with all the data
      */
     public TimeZone getTimeZone() {
         return this.timeZone;
     }
 
+    /**
+     * Sets the timezone to be assocaited with all of the data.
+     *
+     * @param timeZone the new timezone to set
+     */
     public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
     }
@@ -223,6 +230,7 @@ public class TimelordData implements Serializable,
      * Create a new task with the given name and add it to the list.
      *
      * @param taskName the name of the task to create and add
+     * @return instance of the task that has been added to the data object
      */
     public TimelordTask addTask(String taskName) {
         // TODO: check if a task of this name exists
@@ -244,6 +252,13 @@ public class TimelordData implements Serializable,
         sortTaskCollection(); // fires a change
     }
 
+    /**
+     * Fires the event indicating how much untracked time is left
+     * for the day.
+     *
+     * @param untrackedTimeLeftToday the amount of untracked time today
+     *        as a double.
+     */
     public void fireUntrackedTimeLeftToday(double untrackedTimeLeftToday) {
         if (log.isDebugEnabled()) {
             log.debug(
@@ -305,6 +320,13 @@ public class TimelordData implements Serializable,
         }
     }
 
+    /**
+     * Removes all the time tracking data that is outside the range
+     * provided.
+     *
+     * @param startDate the state date to remove data before
+     * @param endDate the end date to remove data after
+     */
     public void removeTrackingOutsideRange(Date startDate, Date endDate) {
         Collection<TimelordTask> taskCollection = getTaskCollection();
         Iterator<TimelordTask> taskCollectionIterator =
@@ -354,7 +376,7 @@ public class TimelordData implements Serializable,
     }
 
     /**
-     * Adds a property change listener against a specific property
+     * Adds a property change listener against a specific property.
      *
      * @param propertyName the name of the property to listen to
      * @param listener the listener to add
@@ -365,7 +387,7 @@ public class TimelordData implements Serializable,
     }
 
     /**
-     * Removes a property change listener
+     * Removes a property change listener.
      *
      * @param listener the listener to remove
      */
@@ -389,6 +411,11 @@ public class TimelordData implements Serializable,
         }
     }
 
+    /**
+     * Creates a cloned copy of the TimelordData object.
+     *
+     * @return a cloned instance of the object
+     */
     public TimelordData clone() {
         TimelordData timelordDataClone;
 
