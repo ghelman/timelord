@@ -3,17 +3,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
+  <!-- The Basics -->
   <groupId>net.chaosserver.timelord</groupId>
   <artifactId>timelord</artifactId>
-  <packaging>jar</packaging>
   <version>2.3</version>
-  <name>Timelord</name>
-  <url>http://code.google.com/p/timelordproject/</url>
-  <description>
-    Timelord is a simple client time tracking application designed to annoy you
-    as often as possible to keep your time track up to date.  It has no fancy
-    interfaces into anything.  Just a simple stand alone application.
-  </description>
+  <packaging>jar</packaging>
   <dependencies>
     <dependency>
       <groupId>javax.help</groupId>
@@ -52,6 +46,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <!-- Build Settings -->
   <build>
     <resources>
       <resource>
@@ -81,9 +76,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <artifactId>osxappbundle-maven-plugin</artifactId>
         <version>1.0-alpha-1</version>
         <configuration>
-          <mainClass>net.chaosserver.timelord.swingui.Timelord</mainClass>
-          <iconFile>${basedir}/src/main/resources/timelord.icns</iconFile>
-          <javaApplicationStub>${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
+          <mainClass>
+          net.chaosserver.timelord.swingui.Timelord</mainClass>
+          <iconFile>
+          ${basedir}/src/main/resources/timelord.icns</iconFile>
+          <javaApplicationStub>
+          ${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
           <jvmVersion>1.5+</jvmVersion>
         </configuration>
         <executions>
@@ -97,4 +95,54 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       </plugin>
     </plugins>
   </build>
+  <!-- More Project Information -->
+  <name>Timelord</name>
+  <description>Timelord is a simple client time tracking
+  application designed to annoy you as often as possible to keep
+  your time track up to date. It has no fancy interfaces into
+  anything. Just a simple stand alone application.</description>
+  <url>http://code.google.com/p/timelordproject/</url>
+  <inceptionYear>2005</inceptionYear>
+  <licenses>
+    <license>
+      <name>GPLv3</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>Chaos Corporation</name>
+  </organization>
+  <developers>
+    <developer>
+      <id>jreed</id>
+      <name>Jordan Reed</name>
+      <organization>Chaos Corporation</organization>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+  </developers>
+
+  <!-- Environment Settings -->
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/timelordproject/issues/list</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:svn:http://timelordproject.googlecode.com/svn/trunk</connection>
+    <developerConnection>scm:svn:https://timelordproject.googlecode.com/svn/trunk</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://timelordproject.googlecode.com/svn/trunk</url>
+  </scm>  
+  <!--
+  <ciManagement>...</ciManagement>
+  <mailingLists>...</mailingLists>
+  <prerequisites>...</prerequisites>
+  <repositories>...</repositories>
+  <pluginRepositories>...</pluginRepositories>
+  <distributionManagement>...</distributionManagement>
+  <profiles>...</profiles>  
+  -->
 </project>
