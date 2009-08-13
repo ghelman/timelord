@@ -46,6 +46,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <!-- Build Settings -->
   <build>
     <resources>
@@ -95,6 +96,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       </plugin>
     </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <doctitle>API for ${project.name} ${project.version}</doctitle>
+          <windowtitle>API for ${project.name} ${project.version}</windowtitle>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <configLocation>checkstyle-cs.xml</configLocation>
+        </configuration>
+       </plugin>
+    </plugins>
+  </reporting>
+  
   <!-- More Project Information -->
   <name>Timelord</name>
   <description>Timelord is a simple client time tracking
