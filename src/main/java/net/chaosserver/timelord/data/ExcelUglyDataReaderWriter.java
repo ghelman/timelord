@@ -29,6 +29,9 @@ import javax.swing.filechooser.FileFilter;
 
 import net.chaosserver.timelord.util.OsUtil;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -36,12 +39,16 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+
 /**
  * This is a Writer requested by Doug that goes into a specific format he uses
  * for other scripts. I find the format ugly and mostly useless and thus have
  * named it so.
  */
 public class ExcelUglyDataReaderWriter extends TimelordDataReaderWriter {
+    /** The logger. */
+    private static Log logger = LogFactory.getLog(ExcelUglyDataReaderWriter.class);
+
     /** Default output filename. */
     public static final String DEFAULT_FILENAME = "TimeLordData.xls";
 
@@ -67,8 +74,7 @@ public class ExcelUglyDataReaderWriter extends TimelordDataReaderWriter {
      * @return will never return
      * @throws UnsupportedOperationException will always throw this excpetion
      */
-    public TimelordData readTimelordData()
-            throws UnsupportedOperationException {
+    public TimelordData readTimelordData() {
 
         throw new UnsupportedOperationException();
     }
@@ -105,14 +111,17 @@ public class ExcelUglyDataReaderWriter extends TimelordDataReaderWriter {
                                 outputFile.getCanonicalPath()});
             }
         } catch (IOException e) {
-            // TODO log.
+            // trigger an audit even that hits the UI
+            if(logger.isErrorEnabled()) {
+                logger.error("Failed to write out the file!", e);
+            }
         }
 
     }
 
     /**
      * Generates the workbook that contains all of the data for the excel
-     * document
+     * document.
      *
      * @param timelordData the data object to generate the workbook for
      * @return the workbook of data
@@ -181,6 +190,11 @@ public class ExcelUglyDataReaderWriter extends TimelordDataReaderWriter {
         return wb;
     }
 
+    /**
+     * Gets the filter for files that match this reader writer.
+     *
+     * @return the filter for matchines files
+     */
     public FileFilter getFileFilter() {
         return new ExcelFileFilter();
     }

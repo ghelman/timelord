@@ -267,9 +267,9 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                         new TaskDayPanel(timelordTask, getDateDisplayed());
                 }
 
-                if ((i % 2) == 0) {
-                    // Leave the original color
-                } else {
+                // If this does not pass, then leave the original
+                // color.
+                if ((i % 2) != 0) {
                     Color color = taskDayPanel.getBackground();
                     Color color2 = new Color(
                         color.getRed() + LayoutConstants.LIGHTEN_AMOUNT,
@@ -497,10 +497,12 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                 }
 
                 taskDayPanel.dispose();
+            /*
             } else if (componentArray[i] instanceof SummaryPanel) {
                 // Nothing to do for the summary panel
             } else if (componentArray[i] instanceof JScrollPane) {
                 // Nothing for the scroll pane
+            */
             } else {
                 if (log.isWarnEnabled()) {
                     log.warn(
@@ -676,12 +678,14 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                     Preferences preferences =
                         Preferences.userNodeForPackage(Timelord.class);
 
+                    /*
                     if (Timelord.ANNOYANCE_JORDAN.equals(
                                     preferences.get(
                                         Timelord.ANNOYANCE_MODE,
                                         null))) {
                         // hideFrame();
                     }
+                    */
                 }
             }
         } else if ("untrackedTimeLeftToday".equals(evt.getPropertyName())) {

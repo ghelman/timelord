@@ -24,7 +24,7 @@ package net.chaosserver.timelord.swingui;
 public final class LayoutConstants {
 
     /** Private constructor. */
-    private LayoutConstants() {}
+    private LayoutConstants() { }
 
     /** The padding for the larger inset. */
     public static final int BIG_INSET = 50;

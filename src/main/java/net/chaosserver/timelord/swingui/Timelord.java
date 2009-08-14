@@ -422,6 +422,9 @@ public class Timelord {
                     macSwingerConstructor.newInstance(new Object[] {this});
                 } catch (Exception e) {
                     // Shouldn't happen, but not a big deal
+                    if (log.isWarnEnabled()) {
+                        log.warn("Failed to create the MacSwinger", e);
+                    }
                 }
 
 

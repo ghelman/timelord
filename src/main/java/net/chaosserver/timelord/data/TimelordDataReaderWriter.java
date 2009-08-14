@@ -42,9 +42,10 @@ public abstract class TimelordDataReaderWriter {
 
     /**
      * Writes the given timelordData to a default location or location
-     * specified by calling concrete stters
+     * specified by calling concrete setters.
      *
      * @param timelordData the data to write
+     * @param outputFile the output file where the data will be written
      * @throws TimelordDataException indicates an error writing
      */
     public abstract void writeTimelordData(
@@ -58,21 +59,51 @@ public abstract class TimelordDataReaderWriter {
      */
     public abstract File getDefaultOutputFile();
 
+     /**
+      * Returns the basic file filter that allows everything.
+      *
+      * @return the basic file filter
      public FileFilter getFileFilter() {
         return new BasicFileFilter();
      }
 
+     /**
+      * Basic file filter that allows everything.
+      */
      public class BasicFileFilter extends FileFilter {
+        /**
+         * Filter logic to see if the passed in file matches
+         * the required filtering technology.
+         *
+         * @param file the file check for filter match
+         * @return if the file matches the filter
+         */
         public boolean accept(File file) {
             return true;
         }
 
+        /**
+         * Returns the descriptions of the filter that appears in the
+         * dialog box.
+         *
+         * @return the description
+         */
         public String getDescription() {
             return "All Files (*.*)";
         }
      }
 
+     /**
+      * Simple file filter to filter down to XLS files.
+      */
      public class ExcelFileFilter extends FileFilter {
+        /**
+         * Filter logic to see if the passed in file matches
+         * the required filtering technology.
+         *
+         * @param file the file check for filter match
+         * @return if the file matches the filter
+         */
         public boolean accept(File file) {
             boolean result;
             String filename = file.getName();
@@ -100,6 +131,12 @@ public abstract class TimelordDataReaderWriter {
             return result;
         }
 
+        /**
+         * Returns the descriptions of the filter that appears in the
+         * dialog box.
+         *
+         * @return the description
+         */
         public String getDescription() {
             return "Microsoft Excel Workbook (*.xls)";
         }

@@ -90,8 +90,7 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * @return will never return
      * @throws UnsupportedOperationException will always throw this excpetion
      */
-    public TimelordData readTimelordData()
-            throws UnsupportedOperationException {
+    public TimelordData readTimelordData() {
 
         throw new UnsupportedOperationException();
     }
@@ -157,8 +156,8 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * @return the map of styles
      */
     protected Map<String,HSSFCellStyle> buildStyleMap(HSSFWorkbook wb) {
-        Map<String,HSSFCellStyle> styleMap =
-            new HashMap<String,HSSFCellStyle>();
+        Map<String, HSSFCellStyle> styleMap =
+            new HashMap<String, HSSFCellStyle>();
 
         HSSFCellStyle style;
         HSSFFont font;
@@ -249,9 +248,9 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
 
         // Build the Map of the Styles that will be applied to cells
         // in the workbook
-        Map<String,HSSFCellStyle> styleMap = buildStyleMap(wb);
-        Map<String,List<String>> sheetToNotes =
-            new TreeMap<String,List<String>>(new DateComparator());
+        Map<String, HSSFCellStyle> styleMap = buildStyleMap(wb);
+        Map<String, List<String>> sheetToNotes =
+            new TreeMap<String, List<String>>(new DateComparator());
 
 
         // Since there is an issue re-ordering sheets after they
@@ -276,7 +275,7 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
                 HSSFRow row = sheet.getRow(j);
                 if (row == null) {
                     row = sheet.createRow(j);
-                    row.setHeight((short)0);
+                    row.setHeight((short) 0);
                     HSSFCell cell = row.createCell((short) 0);
                     cell.setCellStyle((HSSFCellStyle) styleMap
                             .get("taskNameStyle"));
@@ -321,8 +320,8 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      */
     protected void preCreateAllSheets(HSSFWorkbook workbook,
             TimelordData timelordData,
-            Map<String,List<String>> sheetToNotes,
-            Map<String,HSSFCellStyle> styleMap) {
+            Map<String, List<String>> sheetToNotes,
+            Map<String, HSSFCellStyle> styleMap) {
 
         // This holds the most recent date in the entire data file.
         // This date starts out as null, and any time a task if found
@@ -462,10 +461,12 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * @param timelordData the timelord data used for the sheets.
      * @param sheetToNotes the map of sheets to the notes associated with it
      * @param styleMap the map of styles
+     *
+     * @return the total rows added to Excel after adding all the tasks
      */
     protected int addAllTasks(HSSFWorkbook workbook,
-            TimelordData timelordData, Map<String,List<String>> sheetToNotes,
-            Map<String,HSSFCellStyle> styleMap) {
+            TimelordData timelordData, Map<String, List<String>> sheetToNotes,
+            Map<String, HSSFCellStyle> styleMap) {
 
         // Start on row number two.  The first row contains the header data.
         int rowNum = 2;
@@ -588,7 +589,7 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * @param styleMap the map of styles
      */
     protected void createFooterRows(HSSFSheet sheet,
-            int rowNum, Map<String,HSSFCellStyle> styleMap) {
+            int rowNum, Map<String, HSSFCellStyle> styleMap) {
 
         HSSFRow row = sheet.createRow(rowNum);
 
@@ -634,7 +635,7 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      */
     private void addTaskDay(HSSFRow row, String taskName,
             TimelordTaskDay timelordTaskDay, List<String> noteList,
-            Map<String,HSSFCellStyle> styleMap) {
+            Map<String, HSSFCellStyle> styleMap) {
 
         Calendar calendarDay = Calendar.getInstance();
         calendarDay.setTime(timelordTaskDay.getDate());
@@ -674,7 +675,7 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * @param styleMap the style map for the header styles
      */
     protected void createHeaderRows(HSSFSheet sheet, Date weekStartDate,
-            Map<String,HSSFCellStyle> styleMap) {
+            Map<String, HSSFCellStyle> styleMap) {
         HSSFRow headerRow = sheet.createRow(0);
         Calendar calendarDay = Calendar.getInstance();
         calendarDay.setTime(weekStartDate);
@@ -817,6 +818,11 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
         }
     }
 
+     /**
+      * Return the Excel file filter.
+      *
+      * @return the excel file filter
+      */
      public FileFilter getFileFilter() {
         return new ExcelFileFilter();
      }

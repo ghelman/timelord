@@ -66,7 +66,7 @@ public class TimelordTaskDay implements Serializable, Cloneable {
     /**
      * Default constructor.
      */
-    public TimelordTaskDay(){}
+    public TimelordTaskDay() { }
 
     /**
      * Getter for the date.

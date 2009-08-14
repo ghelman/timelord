@@ -131,7 +131,7 @@ public class ExcelDataReaderWriterUI extends ExcelDataReaderWriter
 
         Container configContainer = configDialog.getContentPane();
 
-        configContainer.setLayout(new GridLayout(2,1));
+        configContainer.setLayout(new GridLayout(2, 1));
 
         JButton newButton;
 
@@ -204,6 +204,12 @@ public class ExcelDataReaderWriterUI extends ExcelDataReaderWriter
         return this.parentFrame;
     }
 
+    /**
+     * Listens for actions on the dialog box for range and adjusts
+     * the UI as required.
+     *
+     * @param evt the action event being performed.
+     */
     public void actionPerformed(ActionEvent evt) {
         if(ACTION_SETSTART.equals(evt.getActionCommand())) {
             JCalendarDialog calendarDialog =

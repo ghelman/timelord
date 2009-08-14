@@ -266,10 +266,10 @@ public class BringToFrontThread extends Thread {
             Method sharedAppMethod =
                 nsApplicationClass.getDeclaredMethod(
                     "sharedApplication",
-                    new Class[] {  });
+                    new Class[] {});
 
             Object nsApplicationObject =
-                sharedAppMethod.invoke(null, new Object[] {  });
+                sharedAppMethod.invoke(null, new Object[] {});
 
             Field userAttentionRequestCriticalField =
                 nsApplicationClass.getDeclaredField(
