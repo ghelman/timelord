@@ -63,6 +63,7 @@ public abstract class TimelordDataReaderWriter {
       * Returns the basic file filter that allows everything.
       *
       * @return the basic file filter
+      */
      public FileFilter getFileFilter() {
         return new BasicFileFilter();
      }
