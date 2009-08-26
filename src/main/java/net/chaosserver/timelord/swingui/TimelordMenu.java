@@ -33,6 +33,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.help.CSH;
 import javax.help.HelpBroker;
@@ -55,7 +56,13 @@ import javax.swing.KeyStroke;
 public class TimelordMenu extends JMenuBar implements ActionListener {
     /** The logger. */
     private static Log log = LogFactory.getLog(TimelordMenu.class);
+    
+    /** Resource Bundle. */
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("TimelordResources");
 
+    /** Resource Root. */
+    private static final String RROOT = TimelordMenu.class.getName();
+    
     /** Action Event for Exit. */
     private static final String ACTION_EXIT =
         TimelordMenu.class.getName() + ".ACTION_EXIT";
@@ -124,6 +131,11 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
     public static final String ACTION_CHANGE_START =
         TimelordMenu.class.getName() + ".ACTION_CHANGE_START";
 
+    /** Action Event for Changing the Annoyance Time. */
+    public static final String ACTION_CHANGE_ANNOY =
+        TimelordMenu.class.getName() + ".ACTION_CHANGE_ANNOY";
+    
+    
     /** The checkbox item for Jordan Annoyance Mode. */
     protected JCheckBoxMenuItem annoyanceJordanCheckbox;
 
@@ -159,21 +171,32 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
      * @return the new file menu
      */
     protected JMenu createFileMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(
+        		resourceBundle.getString(RROOT + ".fileMenuName"));
         JMenuItem menuItem;
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
 
-        JMenu exportMenu = new JMenu("Export...");
+        JMenu exportMenu = new JMenu(
+        		resourceBundle.getString(RROOT + ".file.export"));
         exportMenu.setMnemonic(KeyEvent.VK_A);
 
-        menuItem = new JMenuItem("Excel, Jordan Style...", KeyEvent.VK_J);
-        menuItem.setToolTipText("For Cool People");
+        menuItem = new JMenuItem(
+        		resourceBundle.getString(RROOT + ".file.export.jordan")
+        		, KeyEvent.VK_J);
+        
+        menuItem.setToolTipText(
+        		resourceBundle.getString(RROOT 
+        				+ ".file.export.jordan.tooltip"));
+        
         menuItem.setActionCommand(ACTION_EXPORT_JORDAN);
         menuItem.addActionListener(this);
         exportMenu.add(menuItem);
 
-        menuItem = new JMenuItem("Excel, Doug Style...", KeyEvent.VK_D);
+        menuItem = new JMenuItem(
+        		resourceBundle.getString(RROOT
+        				+ ".file.export.doug"), KeyEvent.VK_D);
+        		
         menuItem.setToolTipText("For Losers");
         menuItem.setActionCommand(ACTION_EXPORT_DOUG);
         menuItem.addActionListener(this);
@@ -241,6 +264,13 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         menuItem = new JMenuItem("Change Start Time");
         menuItem.setActionCommand(ACTION_CHANGE_START);
+        menuItem.addActionListener(this);
+        viewMenu.add(menuItem);
+
+        menuItem = new JMenuItem("Change Annoy Time");
+        // currently disabled experimental functionality
+        menuItem.setEnabled(false);
+        menuItem.setActionCommand(ACTION_CHANGE_ANNOY);
         menuItem.addActionListener(this);
         viewMenu.add(menuItem);
 
@@ -370,8 +400,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
     }
 
     /**
-     * Update the checked state of the annoyance mode menu based on the current
-     * settings of the data object.
+     * Update the checked state of the annoyance mode menu based on the 
+     * current settings of the data object.
      */
     public void updateAnnoyanceButtons() {
         annoyanceJordanCheckbox.setSelected(false);
@@ -438,6 +468,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
             timelord.getCommonTaskPanel().doLayout();
         } else if (ACTION_CHANGE_START.equals(evt.getActionCommand())) {
             timelord.changeStartTime(false);
+        } else if(ACTION_CHANGE_ANNOY.equals(evt.getActionCommand())) {
+        	timelord.changeAnnoyTime();
         } else if (evt.getSource().equals(annoyanceJordanCheckbox)) {
             timelord.setAnnoyanceMode(Timelord.ANNOYANCE_JORDAN);
             updateAnnoyanceButtons();

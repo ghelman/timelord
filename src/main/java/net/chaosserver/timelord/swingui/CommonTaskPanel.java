@@ -673,7 +673,7 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                     getTimelordDayView().getUntrackedTime();
 
                 if (untrackedTimeLeftToday
-                    <= DateUtil.SMALL_TIME_INCREMENT_HOUR) {
+                    <= DateUtil.getSmallestTimeIncremented()) {
 
                     Preferences preferences =
                         Preferences.userNodeForPackage(Timelord.class);

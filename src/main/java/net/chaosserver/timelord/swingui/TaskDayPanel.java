@@ -64,9 +64,6 @@ public class TaskDayPanel extends JPanel implements ActionListener,
     private static final String ACTION_MINUS_15 =
         TaskDayPanel.class.getName() + ".ACTION_MINUS_15";
 
-    /** Number format for the time. */
-    public static final NumberFormat HOURS_FORMAT = new DecimalFormat("00.00");
-
     /** Hours in a day. */
     private static final int HOURS_PER_DAY = 24;
 
@@ -154,7 +151,10 @@ public class TaskDayPanel extends JPanel implements ActionListener,
         gridBagLayout.addLayoutComponent(taskName, gridBagConstraints);
         add(taskName);
 
-        minusButton = new JButton("-0.25");
+        minusButton = new JButton("-" 
+        		+ DateUtil.getSmallestTimeInMinutes() 
+        		+ "m");
+        
         minusButton.setToolTipText(
                 "Remove 15 minutes (0.25 hours) " + "of time from this task.");
         minusButton.setActionCommand(ACTION_MINUS_15);
@@ -166,7 +166,10 @@ public class TaskDayPanel extends JPanel implements ActionListener,
         gridBagLayout.addLayoutComponent(minusButton, gridBagConstraints);
         add(minusButton);
 
-        addButton = new JButton("+0.25");
+        addButton = new JButton("+"
+        		+ DateUtil.getSmallestTimeInMinutes()
+        		+ "m");
+        
         addButton.setToolTipText(
                 "Add 15 minutes (0.25 hours) of " + "time from this task.");
         addButton.setActionCommand(ACTION_ADD_15);
@@ -181,11 +184,11 @@ public class TaskDayPanel extends JPanel implements ActionListener,
         timeLabel = new JLabel();
 
         if (todayTaskDay != null) {
-            timeLabel.setText(HOURS_FORMAT.format(todayTaskDay.getHours()));
+            timeLabel.setText(DateUtil.formatHours(null, todayTaskDay.getHours()));
         } else {
-            timeLabel.setText(HOURS_FORMAT.format(0));
+            timeLabel.setText(DateUtil.formatHours(null, 0));
         }
-
+        
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.fill = GridBagConstraints.NONE;
         gridBagConstraints.weightx = 0;
@@ -302,7 +305,7 @@ public class TaskDayPanel extends JPanel implements ActionListener,
             hours = todayTaskDay.getHours();
         }
 
-        timeLabel.setText(HOURS_FORMAT.format(hours));
+        timeLabel.setText(DateUtil.formatHours(null, hours));
 
         if (hours <= 0) {
             minusButton.setEnabled(false);
@@ -368,11 +371,11 @@ public class TaskDayPanel extends JPanel implements ActionListener,
     public void actionPerformed(ActionEvent evt) {
         if (ACTION_ADD_15.equals(evt.getActionCommand())) {
             getTodayTaskDay(true).
-                addHours(DateUtil.SMALL_TIME_INCREMENT_HOUR);
+                addHours(DateUtil.getSmallestTimeIncremented());
 
         } else if (ACTION_MINUS_15.equals(evt.getActionCommand())) {
             getTodayTaskDay(true).
-                addHours(-DateUtil.SMALL_TIME_INCREMENT_HOUR);
+                addHours(-DateUtil.getSmallestTimeIncremented());
         }
     }
 

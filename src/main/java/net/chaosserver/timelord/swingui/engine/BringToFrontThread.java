@@ -50,7 +50,7 @@ public class BringToFrontThread extends Thread {
 
     /** The smallest time a user can increment in milliseconds. */
     private static final double SMALL_TIME_INCREMENT_MILLI =
-        3600000 * DateUtil.SMALL_TIME_INCREMENT_HOUR;
+        3600000 * DateUtil.getSmallestTimeIncremented();
 
     /** Time thread should sleep between polling. */
     private static final int SLEEP_TIME_MILLI = 60000;
@@ -158,7 +158,7 @@ public class BringToFrontThread extends Thread {
                 }
 
                 if (untrackedTimeLeftToday
-                        >= DateUtil.SMALL_TIME_INCREMENT_HOUR) {
+                        >= DateUtil.getSmallestTimeIncremented()) {
 
                     annoy();
                 } else {
@@ -178,7 +178,7 @@ public class BringToFrontThread extends Thread {
 
                 if ((timeSinceLastAnnoy >= SMALL_TIME_INCREMENT_MILLI)
                         && (untrackedTimeLeftToday
-                            >= DateUtil.SMALL_TIME_INCREMENT_HOUR)) {
+                            >= DateUtil.getSmallestTimeIncremented())) {
                     annoy();
                 }
             }
@@ -260,7 +260,7 @@ public class BringToFrontThread extends Thread {
 
         // This bounces the Dock in Panther/Tiger
         try {
-            Class nsApplicationClass =
+            Class<?> nsApplicationClass =
                 Class.forName("com.apple.cocoa.application.NSApplication");
 
             Method sharedAppMethod =

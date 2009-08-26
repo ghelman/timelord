@@ -95,6 +95,9 @@ public class Timelord {
     /** The default frame width. */
     private static final int DEFAULT_FRAME_WIDTH = 640;
 
+    /** Constant for preference for default time increment. */
+	public static final String TIME_INCREMENT = "TIME_INCREMENT";
+
     /** Holds the application frame. */
     protected JFrame applicationFrame;
 
@@ -182,7 +185,7 @@ public class Timelord {
      */
     public void writeTimeTrackData(String rwClassName, boolean userSelect) {
         try {
-            Class rwClass = Class.forName(rwClassName);
+            Class<?> rwClass = Class.forName(rwClassName);
             TimelordDataReaderWriter timelordDataRW =
                 (TimelordDataReaderWriter) rwClass.newInstance();
 
@@ -411,11 +414,11 @@ public class Timelord {
 
             if(OsUtil.isMac()) {
                 try {
-                    Class macSwingerClass =
+                    Class<?> macSwingerClass =
                         Class.forName("net.chaosserver.timelord."
                                 + "swingui.macos.MacSwinger");
 
-                    Constructor macSwingerConstructor =
+                    Constructor<?> macSwingerConstructor =
                         macSwingerClass.getConstructor(
                                 new Class[]{Timelord.class});
 
@@ -634,6 +637,18 @@ public class Timelord {
 
         startTimeDialog.setVisible(true);
         startTimeDialog.dispose();
+    }
+    
+    /**
+     * Presents a dialog to allow the changing of the annoy time
+     * for the various annoy modes.
+     */
+    public void changeAnnoyTime() {
+    	AnnoyTimeDialog annoyTimeDialog =
+    		new AnnoyTimeDialog(applicationFrame);
+    	
+    	annoyTimeDialog.setVisible(true);
+    	annoyTimeDialog.dispose();
     }
 
     /**

@@ -74,6 +74,8 @@ public class PropertyChangeSupport extends java.beans.PropertyChangeSupport {
                     + sourceBean.getClass().getName()
                     + "] has too many listeners ["
                     + listeners.length
+                    + "] when adding ["
+                    + listener.getClass().getName()
                     + "]");
             }
         }

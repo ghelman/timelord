@@ -148,7 +148,7 @@ public class AddTimeDialog extends JDialog implements ActionListener {
                     timelordTask.getTaskDay(addDate, true);
 
                 timelordTaskDay.addHours(
-                    DateUtil.SMALL_TIME_INCREMENT_HOUR);
+                    DateUtil.getSmallestTimeIncremented());
 
                 if (timelordTask.isHidden()) {
                     timelordTask.setHidden(true);
