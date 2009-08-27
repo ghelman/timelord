@@ -203,7 +203,7 @@ public class SummaryPanel extends JPanel {
                     "(" + hourDisplay.format(dayStart.getTime()) + " - "
                     + hourDisplay.format(
                             getTimelordDayView().getTimeTrackedTo()) + ")  "
-                    + DateUtil.formatHours(null, 
+                    + DateUtil.formatHours(null,
                             getTimelordDayView().getTotalTimeToday(true)));
         } else {
             totalTimeLabel.setText(
@@ -221,7 +221,7 @@ public class SummaryPanel extends JPanel {
 
         if (isToday()) {
             timeLeftLabel.setText(
-            		DateUtil.formatHours(null, 
+                    DateUtil.formatHours(null,
                             getTimelordDayView().getUntrackedTime()));
         }
     }

@@ -39,6 +39,10 @@ public final class DateUtil {
     private DateUtil() {
     }
 
+    /** The date display is used to display the title of tab. */
+    public static final DateFormat DATE_FORMAT =
+        new SimpleDateFormat("MMM-dd-yyyy");
+
     /** Number format for the time. */
     public static final NumberFormat HOURS_FORMAT = new DecimalFormat("00.00");
 
@@ -58,27 +62,28 @@ public final class DateUtil {
 
     /**
      * Gets the time that is incremented.
-     * 
+     *
      * @return the smallest time incremented.
      */
     public static double getSmallestTimeIncremented() {
         Preferences preferences =
             Preferences.userNodeForPackage(Timelord.class);
-        
-        double timeIncrement = preferences.getDouble(Timelord.TIME_INCREMENT, DEFAULT_SMALL_TIME_INCREMENT_HOUR);
-    	return timeIncrement;
+
+        double timeIncrement = preferences.getDouble(
+            Timelord.TIME_INCREMENT, DEFAULT_SMALL_TIME_INCREMENT_HOUR);
+        return timeIncrement;
     }
-    
+
     /**
      * Gets the time that incremented as minutes.
-     * 
+     *
      * @return the smallest time as minutes as a decimal
      */
     public static int getSmallestTimeInMinutes() {
-    	return (int) (60 * getSmallestTimeIncremented());
+        return (int) (60 * getSmallestTimeIncremented());
     }
-    
-    
+
+
     /**
      * Truncates a date object by setting to midnight of the
      * current date.
@@ -105,23 +110,23 @@ public final class DateUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
     }
-    
+
     /**
      * Formats the hours display for the given locale.
-     * 
+     *
      * @param locale locale to format for
      * @param totalhours number of hours to display
      * @return the format as a string
      */
     public static String formatHours(Locale locale, double totalhours) {
-    	/*
-    	int hours = (int) Math.floor(totalhours);
-    	int minutes = (int) ((totalhours-hours) * 60);
-    	String result = hours + "h " + minutes + "m";
-    	*/
-    	
-    	String result = HOURS_FORMAT.format(totalhours);
-    	
-		return result;
+        /*
+        int hours = (int) Math.floor(totalhours);
+        int minutes = (int) ((totalhours-hours) * 60);
+        String result = hours + "h " + minutes + "m";
+        */
+
+        String result = HOURS_FORMAT.format(totalhours);
+
+        return result;
     }
 }

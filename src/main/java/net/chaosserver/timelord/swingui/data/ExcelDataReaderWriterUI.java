@@ -37,7 +37,6 @@ import net.chaosserver.timelord.data.ExcelDataReaderWriter;
 import net.chaosserver.timelord.data.TimelordData;
 import net.chaosserver.timelord.data.TimelordDataException;
 import net.chaosserver.timelord.swingui.JCalendarDialog;
-import net.chaosserver.timelord.swingui.TimelordMenu;
 import net.chaosserver.timelord.util.DateUtil;
 
 /**
@@ -50,11 +49,12 @@ public class ExcelDataReaderWriterUI extends ExcelDataReaderWriter
         implements TimelordDataReaderWriterUI, ActionListener {
 
     /** Resource Bundle. */
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("TimelordResources");
+    protected ResourceBundle resourceBundle =
+        ResourceBundle.getBundle("TimelordResources");
 
     /** Resource Root. */
-    private static final String RROOT = ExcelDataReaderWriterUI.class.getName();	
-	
+    private static final String RROOT = ExcelDataReaderWriterUI.class.getName();
+
     /** Action Event for the "Forever" button. */
     public static final String ACTION_FOREVER =
         ExcelDataReaderWriterUI.class.getName() + ".ACTION_FOREVER";
@@ -150,27 +150,27 @@ public class ExcelDataReaderWriterUI extends ExcelDataReaderWriter
         JPanel rangePanel = new JPanel();
         rangePanel.setLayout(new FlowLayout());
 
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".setStartButton"));
-        
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".setStartButton"));
+
         newButton.setActionCommand(ACTION_SETSTART);
         newButton.addActionListener(this);
         rangePanel.add(newButton);
-        startDateField = new JTextField(resourceBundle.getString(RROOT 
-        		+ ".forever"));
-        
+        startDateField = new JTextField(resourceBundle.getString(RROOT
+                + ".forever"));
+
         startDateField.setEditable(false);
         startDateField.setColumns(10);
         rangePanel.add(startDateField);
 
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".setEndButton"));
-        
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".setEndButton"));
+
         newButton.setActionCommand(ACTION_SETEND);
         newButton.addActionListener(this);
         rangePanel.add(newButton);
-        endDateField = new JTextField(resourceBundle.getString(RROOT 
-        		+ ".forever"));
+        endDateField = new JTextField(resourceBundle.getString(RROOT
+                + ".forever"));
         endDateField.setEditable(false);
         endDateField.setColumns(10);
         rangePanel.add(endDateField);
@@ -180,34 +180,34 @@ public class ExcelDataReaderWriterUI extends ExcelDataReaderWriter
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".forever"));
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".forever"));
         newButton.setActionCommand(ACTION_FOREVER);
         newButton.addActionListener(this);
         buttonPanel.add(newButton);
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".thisWeekButton"));
-        
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".thisWeekButton"));
+
         newButton.setActionCommand(ACTION_THISWEEK);
         newButton.addActionListener(this);
         buttonPanel.add(newButton);
 
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".lastWeekButton"));
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".lastWeekButton"));
         newButton.setActionCommand(ACTION_LASTWEEK);
         newButton.addActionListener(this);
         buttonPanel.add(newButton);
 
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".cancelButton"));
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".cancelButton"));
         newButton.setActionCommand(ACTION_CANCEL);
         newButton.addActionListener(this);
         buttonPanel.add(newButton);
         configContainer.add(buttonPanel);
 
-        newButton = new JButton(resourceBundle.getString(RROOT 
-        		+ ".okButton"));
-        
+        newButton = new JButton(resourceBundle.getString(RROOT
+                + ".okButton"));
+
         newButton.setActionCommand(ACTION_OK);
         newButton.addActionListener(this);
         buttonPanel.add(newButton);
@@ -275,11 +275,11 @@ public class ExcelDataReaderWriterUI extends ExcelDataReaderWriter
                 }
         } else if(ACTION_FOREVER.equals(evt.getActionCommand())) {
             startDate = null;
-            startDateField.setText(resourceBundle.getString(RROOT 
-            		+ ".forever"));
+            startDateField.setText(resourceBundle.getString(RROOT
+                    + ".forever"));
             endDate = null;
-            endDateField.setText(resourceBundle.getString(RROOT 
-            		+ ".forever"));
+            endDateField.setText(resourceBundle.getString(RROOT
+                    + ".forever"));
         } else if(ACTION_THISWEEK.equals(evt.getActionCommand())) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);

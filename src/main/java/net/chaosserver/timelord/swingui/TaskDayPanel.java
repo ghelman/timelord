@@ -35,9 +35,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -151,10 +148,10 @@ public class TaskDayPanel extends JPanel implements ActionListener,
         gridBagLayout.addLayoutComponent(taskName, gridBagConstraints);
         add(taskName);
 
-        minusButton = new JButton("-" 
-        		+ DateUtil.getSmallestTimeInMinutes() 
-        		+ "m");
-        
+        minusButton = new JButton("-"
+                + DateUtil.getSmallestTimeInMinutes()
+                + "m");
+
         minusButton.setToolTipText(
                 "Remove 15 minutes (0.25 hours) " + "of time from this task.");
         minusButton.setActionCommand(ACTION_MINUS_15);
@@ -167,9 +164,9 @@ public class TaskDayPanel extends JPanel implements ActionListener,
         add(minusButton);
 
         addButton = new JButton("+"
-        		+ DateUtil.getSmallestTimeInMinutes()
-        		+ "m");
-        
+                + DateUtil.getSmallestTimeInMinutes()
+                + "m");
+
         addButton.setToolTipText(
                 "Add 15 minutes (0.25 hours) of " + "time from this task.");
         addButton.setActionCommand(ACTION_ADD_15);
@@ -184,11 +181,12 @@ public class TaskDayPanel extends JPanel implements ActionListener,
         timeLabel = new JLabel();
 
         if (todayTaskDay != null) {
-            timeLabel.setText(DateUtil.formatHours(null, todayTaskDay.getHours()));
+            timeLabel.setText(
+                DateUtil.formatHours(null, todayTaskDay.getHours()));
         } else {
             timeLabel.setText(DateUtil.formatHours(null, 0));
         }
-        
+
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.fill = GridBagConstraints.NONE;
         gridBagConstraints.weightx = 0;

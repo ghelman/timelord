@@ -96,7 +96,7 @@ public class Timelord {
     private static final int DEFAULT_FRAME_WIDTH = 640;
 
     /** Constant for preference for default time increment. */
-	public static final String TIME_INCREMENT = "TIME_INCREMENT";
+    public static final String TIME_INCREMENT = "TIME_INCREMENT";
 
     /** Holds the application frame. */
     protected JFrame applicationFrame;
@@ -331,6 +331,13 @@ public class Timelord {
     }
 
     /**
+     * Resets the common task panel (the one for the current date).
+     */
+    protected void buildCommonTaskPanel() {
+        timelordTabbedPane.buildCommonTaskPanel();
+    }
+
+    /**
      * Returns if the system is already running based on the creation of a lock
      * file that is deleted when the JVM exits and creates a new instance of the
      * lockfile for this JVM. If the lockfile is detected it presents a dialog
@@ -540,6 +547,8 @@ public class Timelord {
     public void showTodayTab() {
         // Since the Today Tab is always tab zero, set this to tab zero.
         timelordTabbedPane.setSelectedIndex(0);
+
+        // TODO: If the today tab is not today, notify the user.
     }
 
     /**
@@ -638,17 +647,17 @@ public class Timelord {
         startTimeDialog.setVisible(true);
         startTimeDialog.dispose();
     }
-    
+
     /**
      * Presents a dialog to allow the changing of the annoy time
      * for the various annoy modes.
      */
     public void changeAnnoyTime() {
-    	AnnoyTimeDialog annoyTimeDialog =
-    		new AnnoyTimeDialog(applicationFrame);
-    	
-    	annoyTimeDialog.setVisible(true);
-    	annoyTimeDialog.dispose();
+        AnnoyTimeDialog annoyTimeDialog =
+            new AnnoyTimeDialog(applicationFrame);
+
+        annoyTimeDialog.setVisible(true);
+        annoyTimeDialog.dispose();
     }
 
     /**

@@ -81,6 +81,9 @@
             <!--     name="headerFile"                                  -->
             <!--     value="${basedir}/java.header"/>                   -->
         <!-- </module> -->
+        <module name="Header">
+          <property name="headerFile" value="src/main/resources/timelordheader.txt"/>
+        </module>
 
         <!-- Following interprets the header file as regular expressions. -->
         <!-- <module name="RegexpHeader"/>                                -->

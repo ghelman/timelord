@@ -23,9 +23,6 @@ import net.chaosserver.timelord.util.DateUtil;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 import javax.swing.JTabbedPane;
@@ -40,8 +37,6 @@ import javax.swing.JTabbedPane;
 @SuppressWarnings("serial")
 public class TimelordTabbedPane extends JTabbedPane
     implements PropertyChangeListener {
-    /** The hour display is used to display the title of tab. */
-    protected DateFormat hourDisplay = new SimpleDateFormat("MMM-dd-yyyy");
 
     /** Holds the common task panel. */
     protected CommonTaskPanel commonTaskPanel;
@@ -73,13 +68,14 @@ public class TimelordTabbedPane extends JTabbedPane
 
         setCommonTaskPanel(taskPanel);
 
-        add(hourDisplay.format(taskPanel.getDateDisplayed()), taskPanel);
+        add(DateUtil.DATE_FORMAT.format(
+            taskPanel.getDateDisplayed()), taskPanel);
 
         previousDayPanel = new PreviousDayPanel(timelordData);
         previousDayPanel.addPropertyChangeListener(this);
 
         add(
-            hourDisplay.format(previousDayPanel.getDisplayDate()),
+            DateUtil.DATE_FORMAT.format(previousDayPanel.getDisplayDate()),
             previousDayPanel
         );
 
@@ -95,6 +91,32 @@ public class TimelordTabbedPane extends JTabbedPane
      */
     public void setCommonTaskPanel(CommonTaskPanel commonTaskPanel) {
         this.commonTaskPanel = commonTaskPanel;
+    }
+
+    /**
+     * Build the common task panel for the current date.  If there
+     * is an existing panel it will dispose and remove it.
+     */
+    public void buildCommonTaskPanel() {
+        CommonTaskPanel commonTaskPanel = getCommonTaskPanel();
+        if(commonTaskPanel != null) {
+            commonTaskPanel.dispose();
+            this.remove(commonTaskPanel);
+        }
+
+
+        this.dateOfToday = DateUtil.trunc(new Date());
+        // timelordTabbedPane.setCo
+        CommonTaskPanel taskPanel =
+            new CommonTaskPanel(timelordData, dateOfToday);
+
+        this.setCommonTaskPanel(taskPanel);
+        this.add(taskPanel, 0);
+        this.setTitleAt(0,
+            DateUtil.DATE_FORMAT.format(taskPanel.getDateDisplayed()));
+
+        this.setSelectedIndex(0);
+
     }
 
     /**
@@ -114,8 +136,8 @@ public class TimelordTabbedPane extends JTabbedPane
      */
     public void propertyChange(PropertyChangeEvent evt) {
         if ("displayDate".equals(evt.getPropertyName())) {
-            setTitleAt(
-                1, hourDisplay.format(previousDayPanel.getDisplayDate())
+            setTitleAt(1,
+                DateUtil.DATE_FORMAT.format(previousDayPanel.getDisplayDate())
             );
         }
     }

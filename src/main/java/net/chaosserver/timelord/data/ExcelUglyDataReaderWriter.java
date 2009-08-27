@@ -47,7 +47,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class ExcelUglyDataReaderWriter extends TimelordDataReaderWriter {
     /** The logger. */
-    private static Log logger = LogFactory.getLog(ExcelUglyDataReaderWriter.class);
+    private static Log logger =
+        LogFactory.getLog(ExcelUglyDataReaderWriter.class);
 
     /** Default output filename. */
     public static final String DEFAULT_FILENAME = "TimeLordData.xls";
@@ -72,10 +73,8 @@ public class ExcelUglyDataReaderWriter extends TimelordDataReaderWriter {
      * intended to read in files.
      *
      * @return will never return
-     * @throws UnsupportedOperationException will always throw this excpetion
      */
     public TimelordData readTimelordData() {
-
         throw new UnsupportedOperationException();
     }
 

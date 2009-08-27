@@ -56,13 +56,14 @@ import javax.swing.KeyStroke;
 public class TimelordMenu extends JMenuBar implements ActionListener {
     /** The logger. */
     private static Log log = LogFactory.getLog(TimelordMenu.class);
-    
+
     /** Resource Bundle. */
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("TimelordResources");
+    protected ResourceBundle resourceBundle =
+        ResourceBundle.getBundle("TimelordResources");
 
     /** Resource Root. */
     private static final String RROOT = TimelordMenu.class.getName();
-    
+
     /** Action Event for Exit. */
     private static final String ACTION_EXIT =
         TimelordMenu.class.getName() + ".ACTION_EXIT";
@@ -134,8 +135,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
     /** Action Event for Changing the Annoyance Time. */
     public static final String ACTION_CHANGE_ANNOY =
         TimelordMenu.class.getName() + ".ACTION_CHANGE_ANNOY";
-    
-    
+
+
     /** The checkbox item for Jordan Annoyance Mode. */
     protected JCheckBoxMenuItem annoyanceJordanCheckbox;
 
@@ -172,31 +173,31 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
      */
     protected JMenu createFileMenu() {
         JMenu fileMenu = new JMenu(
-        		resourceBundle.getString(RROOT + ".fileMenuName"));
+                resourceBundle.getString(RROOT + ".fileMenuName"));
         JMenuItem menuItem;
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
 
         JMenu exportMenu = new JMenu(
-        		resourceBundle.getString(RROOT + ".file.export"));
+                resourceBundle.getString(RROOT + ".file.export"));
         exportMenu.setMnemonic(KeyEvent.VK_A);
 
         menuItem = new JMenuItem(
-        		resourceBundle.getString(RROOT + ".file.export.jordan")
-        		, KeyEvent.VK_J);
-        
+                resourceBundle.getString(RROOT + ".file.export.jordan")
+                , KeyEvent.VK_J);
+
         menuItem.setToolTipText(
-        		resourceBundle.getString(RROOT 
-        				+ ".file.export.jordan.tooltip"));
-        
+                resourceBundle.getString(RROOT
+                        + ".file.export.jordan.tooltip"));
+
         menuItem.setActionCommand(ACTION_EXPORT_JORDAN);
         menuItem.addActionListener(this);
         exportMenu.add(menuItem);
 
         menuItem = new JMenuItem(
-        		resourceBundle.getString(RROOT
-        				+ ".file.export.doug"), KeyEvent.VK_D);
-        		
+                resourceBundle.getString(RROOT
+                        + ".file.export.doug"), KeyEvent.VK_D);
+
         menuItem.setToolTipText("For Losers");
         menuItem.setActionCommand(ACTION_EXPORT_DOUG);
         menuItem.addActionListener(this);
@@ -400,7 +401,7 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
     }
 
     /**
-     * Update the checked state of the annoyance mode menu based on the 
+     * Update the checked state of the annoyance mode menu based on the
      * current settings of the data object.
      */
     public void updateAnnoyanceButtons() {
@@ -465,11 +466,14 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
                 }
             }
         } else if (ACTION_REFRESH_VIEW.equals(evt.getActionCommand())) {
-            timelord.getCommonTaskPanel().doLayout();
+            // timelord.getCommonTaskPanel().doLayout();
+            // CommonTaskPanel commonTaskPanel = timelord.getCommonTaskPanel();
+            timelord.buildCommonTaskPanel();
+
         } else if (ACTION_CHANGE_START.equals(evt.getActionCommand())) {
             timelord.changeStartTime(false);
         } else if(ACTION_CHANGE_ANNOY.equals(evt.getActionCommand())) {
-        	timelord.changeAnnoyTime();
+            timelord.changeAnnoyTime();
         } else if (evt.getSource().equals(annoyanceJordanCheckbox)) {
             timelord.setAnnoyanceMode(Timelord.ANNOYANCE_JORDAN);
             updateAnnoyanceButtons();

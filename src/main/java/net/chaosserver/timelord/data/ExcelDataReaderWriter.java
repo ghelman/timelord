@@ -88,10 +88,8 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * intended to read in files.
      *
      * @return will never return
-     * @throws UnsupportedOperationException will always throw this excpetion
      */
     public TimelordData readTimelordData() {
-
         throw new UnsupportedOperationException();
     }
 
@@ -155,7 +153,7 @@ public class ExcelDataReaderWriter extends TimelordDataReaderWriter {
      * @param wb the workbook needed to create the objects
      * @return the map of styles
      */
-    protected Map<String,HSSFCellStyle> buildStyleMap(HSSFWorkbook wb) {
+    protected Map<String, HSSFCellStyle> buildStyleMap(HSSFWorkbook wb) {
         Map<String, HSSFCellStyle> styleMap =
             new HashMap<String, HSSFCellStyle>();
 
