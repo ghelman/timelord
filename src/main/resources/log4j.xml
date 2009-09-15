@@ -32,14 +32,10 @@
     </category>
     -->
 
-    <category name="net.chaosserver.timelord.swingui.AnnoyTimeDialog" additivity="false">
+    <category name="net.chaosserver.timelord.swingui.SwingUtil" additivity="false">
         <priority value="all"/>
         <appender-ref ref="STDOUT"/>
     </category>
-
-
-
-
 
     <root>
        <priority value = "warn" />

@@ -17,6 +17,29 @@ along with Timelord.  If not, see <http://www.gnu.org/licenses/>.
 */
 package net.chaosserver.timelord.swingui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.lang.reflect.Method;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
 import net.chaosserver.timelord.data.TimelordData;
 import net.chaosserver.timelord.data.TimelordDayView;
 import net.chaosserver.timelord.data.TimelordTask;
@@ -25,33 +48,6 @@ import net.chaosserver.timelord.util.DateUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import java.lang.reflect.Method;
-
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.prefs.Preferences;
-
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
 
 /**
@@ -450,6 +446,7 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
 
         noteDialog.setTimelordTask(timelordTask);
         noteDialog.setDate(getDateDisplayed());
+        SwingUtil.repairLocation(noteDialog);
         noteDialog.setVisible(true);
     }
 
@@ -611,12 +608,12 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
 
         // Use reflection for compile-time avoidance.
         try {
-            Class nsApplicationClass =
+            Class<?> nsApplicationClass =
                 Class.forName("com.apple.cocoa.application.NSApplication");
             Method sharedAppMethod =
                 nsApplicationClass.getDeclaredMethod(
                     "sharedApplication",
-                    new Class[] {  });
+                    new Class<?>[] {  });
 
             Object nsApplicationObject =
                 sharedAppMethod.invoke(null, new Object[] {  });
@@ -668,6 +665,7 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
             summaryPanel.updateTotalTimeLabel();
             summaryPanel.updateTimeLeftLabel();
 
+            /*
             if (isToday()) {
                 double untrackedTimeLeftToday =
                     getTimelordDayView().getUntrackedTime();
@@ -678,16 +676,15 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                     Preferences preferences =
                         Preferences.userNodeForPackage(Timelord.class);
 
-                    /*
                     if (Timelord.ANNOYANCE_JORDAN.equals(
                                     preferences.get(
                                         Timelord.ANNOYANCE_MODE,
                                         null))) {
                         // hideFrame();
                     }
-                    */
                 }
             }
+            */
         } else if ("untrackedTimeLeftToday".equals(evt.getPropertyName())) {
             summaryPanel.updateTimeLeftLabel();
             summaryPanel.updateTotalTimeLabel();
