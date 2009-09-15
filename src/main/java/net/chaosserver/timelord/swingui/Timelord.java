@@ -31,6 +31,7 @@ import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import javax.swing.Icon;
@@ -64,6 +65,13 @@ import org.apache.commons.logging.LogFactory;
 public class Timelord {
     /** Logger. */
     private static Log log = LogFactory.getLog(Timelord.class);
+
+    /** Resource Bundle. */
+    protected ResourceBundle resourceBundle =
+        ResourceBundle.getBundle("TimelordResources");
+
+    /** Resource Root. */
+    private static final String RROOT = Timelord.class.getName();
 
     /** Preference key for the annoyance mode. */
     protected static final String ANNOYANCE_MODE = "ANNOYANCE_MODE";
@@ -618,10 +626,7 @@ public class Timelord {
         }
 
         sb.append("\n");
-        sb.append("Created by Jordan Reed\n");
-        sb.append("Copyright 2007 Jordan Reed.  All rights reserved.  ");
-        sb.append("Use subject to license.\n");
-        sb.append("Plesae route questions to >/dev/null");
+        sb.append(resourceBundle.getString(RROOT + ".about"));
 
         JOptionPane.showMessageDialog(
             applicationFrame,
