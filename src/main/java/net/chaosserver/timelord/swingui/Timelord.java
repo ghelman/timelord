@@ -42,6 +42,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import net.chaosserver.timelord.data.TimelordData;
 import net.chaosserver.timelord.data.TimelordDataException;
@@ -56,6 +59,10 @@ import net.chaosserver.timelord.util.OsUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -124,6 +131,9 @@ public class Timelord {
 
     /** The application icon. */
     protected Icon applicationIcon;
+    
+    /** Holds the application properties packaged in the file. */
+    protected Properties appProperties = null; 
 
     /**
      * Constructs the new timelord object.
@@ -394,6 +404,105 @@ public class Timelord {
 
         return alreadyRunning;
     }
+    
+    /**
+     * Check if there is a newer version of the timelord application
+     * available and if so, prompt the user to download the new version.
+     * 
+     * @return if the user wants to download a new version
+     */
+    public boolean isUpgradeRequested() {
+    	boolean result = false;
+    	Properties appProperties = getAppProperties();
+    	
+    	if(appProperties != null) {
+    		String pomUrlString = appProperties.getProperty("pomurl");
+    		String appVersion = appProperties.getProperty("implementation.version");
+    		
+    		if(pomUrlString != null) {
+    			InputStream pomStream = null;
+    			
+				try {
+					URL pomUrl = new URL(pomUrlString);
+					pomStream = pomUrl.openStream();
+					
+					if(log.isDebugEnabled()) {
+						log.debug("Opened URL [" 
+								+ pomUrl 
+								+ "] with result ["
+								+ (pomStream!=null?pomStream.available():"null")
+								+ "]");
+					}
+					
+	    			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    			factory.setNamespaceAware(true);
+	    			DocumentBuilder builder = factory.newDocumentBuilder();
+	    			Document doc = builder.parse(pomStream);
+
+	    			if(log.isTraceEnabled()) {
+	    				log.trace("Loaded document: " + doc.getDocumentElement());
+	    			}
+	    			
+	    			Element pomversionElement = doc.getElementById("pomversion");
+	    			String pomVersion = "";
+	    			if(pomversionElement != null) {
+	    			    pomVersion = pomversionElement.getNodeValue();
+	    			}
+	    			
+	    			if(appVersion == null) {
+	    				appVersion = "";
+	    			}
+	    			
+	    			if(log.isDebugEnabled()) {
+	    				log.debug("Testinv version of app ["
+	    						+ appVersion
+	    						+ "] against version of pom ["
+	    						+ pomVersion
+	    						+ "]");
+	    			}
+	    			
+	    			if(!pomVersion.equals(appVersion)) {
+	    				
+	    			}
+	    			
+	    			
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if(pomStream != null) {
+						try {
+							pomStream.close();
+						} catch (IOException e) {
+							if(log.isInfoEnabled()) {
+								log.info("failed to close pomstream", e);
+							}
+						}
+					}
+				}
+    			
+    			
+    		} else {
+        		if(log.isWarnEnabled()) {
+        			log.warn("Got back blank pomurl, so not checking "
+        					+ "for upgrade.");
+        		}
+    		}
+    	} else {
+    		if(log.isWarnEnabled()) {
+    			log.warn("Got back blank properties, so not checking "
+    					+ "for upgrade.");
+    		}
+    	}
+    	
+    	return result;
+    }
 
     /**
      * Starts up the timelord application and displays the frame.
@@ -423,7 +532,7 @@ public class Timelord {
             }
         }
 
-        if (!isAlreadyRunning()) {
+        if (!isAlreadyRunning() && !isUpgradeRequested()) {
             TimelordMenu menu = new TimelordMenu(this);
             applicationFrame.setJMenuBar(menu);
             applicationFrame.addWindowListener(new WindowCloser());
@@ -618,16 +727,8 @@ public class Timelord {
             sb.append(packageInfo.getImplementationVersion());
             sb.append("]");
         } else {
-            InputStream appPropertiesStream =
-                this.getClass().getResourceAsStream(
-                        "/net/chaosserver/timelord/Timelord.properties"
-                    );
-
-            if (appPropertiesStream != null) {
-                try {
-                    Properties appProperties = new Properties();
-                    appProperties.load(appPropertiesStream);
-
+        	Properties appProperties = getAppProperties();
+            if (appProperties != null) {
                     sb.append(" ");
                     sb.append(
                         appProperties.getProperty(
@@ -635,9 +736,6 @@ public class Timelord {
                             "[Unknown Version]"
                         )
                     );
-                } catch (IOException e) {
-                    sb.append(" [Unknown Version]");
-                }
             } else {
                 sb.append(" [Unknown Version]");
             }
@@ -653,6 +751,42 @@ public class Timelord {
             JOptionPane.INFORMATION_MESSAGE,
             applicationIcon
         );
+    }
+    
+    /**
+     * Gets the instance of the application properties, loading them
+     * from file if required.
+     * 
+     * @return the app properties, or null if they could not be loaded.
+     */
+    protected synchronized Properties getAppProperties() {
+    	if(appProperties == null) {
+	        InputStream appPropertiesStream =
+	            this.getClass().getResourceAsStream(
+	                    "/net/chaosserver/timelord/Timelord.properties"
+	                );
+	        if (appPropertiesStream != null) {
+	                appProperties = new Properties();
+	                try {
+						appProperties.load(appPropertiesStream);
+					} catch (IOException e) {
+						if(log.isWarnEnabled()) {
+							log.warn("Failed to load resource for app"
+								+ "properties ["
+							    + "/net/chaosserver/timelord/Timelord.properties"
+							    + "]", e);
+						}
+					}
+	        } else {
+				if(log.isWarnEnabled()) {
+					log.warn("Failed to load resource for app properties ["
+					    + "/net/chaosserver/timelord/Timelord.properties"
+					    + "]");
+				}        	
+	        }
+    	}
+        
+        return appProperties;
     }
 
     /**

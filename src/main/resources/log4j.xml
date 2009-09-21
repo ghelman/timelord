@@ -39,14 +39,11 @@
     </category>
     -->
 
-    <category name="net.chaosserver.timelord.swingui.FindTaskDialog" additivity="false">
-        <priority value="all"/>
-        <appender-ref ref="STDOUT"/>
-    </category>
     <category name="net.chaosserver.timelord.swingui.CommonTaskPanel" additivity="false">
-        <priority value="all"/>
+        <priority value="none"/>
         <appender-ref ref="STDOUT"/>
     </category>
+
 
     <root>
        <priority value = "warn" />

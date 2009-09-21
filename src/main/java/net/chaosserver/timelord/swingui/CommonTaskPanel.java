@@ -128,8 +128,12 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
         commonTaskPanel = new JPanel();
         commonTaskPanel.setLayout(
             new BoxLayout(commonTaskPanel, BoxLayout.PAGE_AXIS));
+        
+        JPanel packingPanel = new JPanel();
+        packingPanel.setLayout(new BorderLayout());
+        packingPanel.add(commonTaskPanel, BorderLayout.NORTH);
 
-        JScrollPane scrollPane = new JScrollPane(commonTaskPanel);
+        JScrollPane scrollPane = new JScrollPane(packingPanel);
         buildTaskList();
         add(scrollPane, BorderLayout.CENTER);
 

@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <!-- The Basics -->
   <groupId>net.chaosserver.timelord</groupId>
   <artifactId>timelord</artifactId>
-  <version id="pomversion">2.4</version>
+  <version id="pomversion">2.5</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -85,14 +85,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>osxappbundle-maven-plugin</artifactId>
-        <version>1.0-alpha-1</version>
+        <version>1.0-alpha-2</version>
         <configuration>
-          <mainClass>
-          net.chaosserver.timelord.swingui.Timelord</mainClass>
-          <iconFile>
-          ${basedir}/src/main/resources/timelord.icns</iconFile>
-          <javaApplicationStub>
-          ${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
+          <mainClass>net.chaosserver.timelord.swingui.Timelord</mainClass>
+          <dictionaryFile>${basedir}/src/main/resources/Info.plist</dictionaryFile>
+          <iconFile>${basedir}/src/main/resources/timelord.icns</iconFile>
+          <javaApplicationStub>${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
           <jvmVersion>1.5+</jvmVersion>
         </configuration>
         <executions>
