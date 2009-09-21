@@ -20,6 +20,7 @@ package net.chaosserver.timelord.swingui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -38,6 +39,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import net.chaosserver.timelord.data.TimelordData;
@@ -72,6 +74,12 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
     /** The date that is used. */
     protected Date dateDisplayed;
 
+    /** The task name filter string. */
+    protected String tasknameFilter;
+
+    /** Holds the search text. */
+    protected JTextField searchTextField;
+
     /** The inner task panel holding the tasks. */
     protected JPanel commonTaskPanel;
 
@@ -84,22 +92,32 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
     /** The dialog to allow a person to input notes for a task. */
     protected NoteDialog noteDialog;
 
+    /** Action Event for Exit. */
+    private static final String ACTION_SEARCHTEXT =
+        TimelordMenu.class.getName() + ".ACTION_SEARCHTEXT";
+
+
     /**
      * The main constructor to setup the display.
      *
      * @param timelordData the data object being displayed.
      * @param dateDisplayed the date to be displayed.
+     * @param tasknameFilter a filter string for the tasks displayed
      * @see #setDateDisplayed
      */
     public CommonTaskPanel(TimelordData timelordData,
-            Date dateDisplayed) {
+            Date dateDisplayed,
+            String tasknameFilter) {
 
         setTimelordData(timelordData);
         setTimelordDayView(
             new TimelordDayView(timelordData, dateDisplayed));
         setDateDisplayed(dateDisplayed);
+        this.tasknameFilter = tasknameFilter;
 
         setLayout(new BorderLayout());
+
+        add(buildSearchPanel(), BorderLayout.NORTH);
 
         summaryPanel = new SummaryPanel(
                 getTimelordDayView(),
@@ -121,6 +139,25 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
     }
 
     /**
+     * Builds the search panel at the top of the page.
+     *
+     * @return the search panel
+     */
+    protected JPanel buildSearchPanel() {
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        searchTextField = new JTextField();
+        searchTextField.setColumns(50);
+        searchTextField.setActionCommand(ACTION_SEARCHTEXT);
+        searchTextField.addActionListener(this);
+        searchPanel.add(searchTextField);
+
+        return searchPanel;
+    }
+
+
+    /**
      * Setter for the dateDisplayed property.
      *
      * @param dateDisplayed Whatever is passed in will be rolled back to 0's for
@@ -137,6 +174,33 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
      */
     public Date getDateDisplayed() {
         return this.dateDisplayed;
+    }
+
+    /**
+     * Sets the task name filter for this view.  This will trigger
+     * a re-filtering and update of the task list.
+     *
+     * @param tasknameFilter a taskname filter
+     */
+    public void setTasknameFilter(String tasknameFilter) {
+        String oldTasknameFilter = this.tasknameFilter;
+        this.tasknameFilter = tasknameFilter;
+
+        if((oldTasknameFilter == null && this.tasknameFilter != null)
+                || !oldTasknameFilter.equals(this.tasknameFilter)) {
+
+            this.buildTaskList();
+        }
+    }
+
+    /**
+     * Returns the taskname filter that is applied to this task
+     * panel.
+     *
+     * @return the filter for this panel
+     */
+    public String getTasknameFitler() {
+        return this.tasknameFilter;
     }
 
     /**
@@ -252,7 +316,18 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                         this.getDateDisplayed());
             }
 
-            if (!timelordTask.isHidden() || (todayTaskDay.getHours() > 0)) {
+            // If the task filter is on, show what matches fitler.
+            // If not on, show all non-hidden and hidden with time tracked.
+            boolean showLine = false;
+            if(tasknameFilter == null || tasknameFilter.trim().length() == 0) {
+                showLine = !timelordTask.isHidden()
+                    || todayTaskDay.getHours() > 0;
+
+            } else {
+                showLine = isFilterPassed(timelordTask, tasknameFilter);
+            }
+
+            if (showLine) {
                 TaskDayPanel taskDayPanel;
 
                 if (todayTaskDay != null) {
@@ -295,6 +370,45 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
     }
 
     /**
+     * Test if a given task passes the filter test or not.
+     *
+     * @param timelordTask the task to check the filter on
+     * @param tasknameFilter the keyword list being filtered
+     * @return if the filter is passed
+     */
+    protected boolean isFilterPassed(TimelordTask timelordTask,
+            String tasknameFilter) {
+
+        boolean result = false;
+        String upperTaskName = timelordTask.getTaskName().toUpperCase();
+        String upperTasknameFilter = tasknameFilter.toUpperCase();
+
+        if(tasknameFilter == null) {
+            result = true;
+        } else {
+            String[] upperTaskFilterTokens = upperTasknameFilter.split("\\s+");
+
+            result = true;
+            for(int i = 0; i < upperTaskFilterTokens.length; i++) {
+                if(!upperTaskName.contains(upperTaskFilterTokens[i])) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+
+        if(log.isDebugEnabled()) {
+            log.debug("Test of match of task named ["
+                    + upperTaskName
+                    + "] against filter ["
+                    + upperTasknameFilter
+                    + "] returned: "
+                    + result);
+        }
+        return result;
+    }
+
+    /**
      * Bring up a simple dialog to allow the user to add a task.
      */
     public void showAddTaskDialog() {
@@ -308,6 +422,14 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
         if (taskName != null) {
             getTimelordData().addTask(taskName);
         }
+    }
+
+    /**
+     * Brings up a simple dialog to allow the user to search for
+     * tasks and then add time to specific task.
+     */
+    public void showFindTask() {
+        searchTextField.requestFocusInWindow();
     }
 
     /**
@@ -595,7 +717,14 @@ public class CommonTaskPanel extends JPanel implements ActionListener,
                     taskDayPanel.getTimelordTask();
                 showEditNoteDialog(timelordTask);
             }
+        } else if(ACTION_SEARCHTEXT.equals(evt.getActionCommand())) {
+            if(log.isDebugEnabled()) {
+                log.debug("Executing search with given input:"
+                    + searchTextField.getText());
+                this.setTasknameFilter(searchTextField.getText());
+            }
         }
+
     }
 
     /**

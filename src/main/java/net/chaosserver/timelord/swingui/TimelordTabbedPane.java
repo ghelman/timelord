@@ -64,7 +64,7 @@ public class TimelordTabbedPane extends JTabbedPane
         this.dateOfToday = DateUtil.trunc(new Date());
 
         CommonTaskPanel taskPanel =
-            new CommonTaskPanel(timelordData, dateOfToday);
+            new CommonTaskPanel(timelordData, dateOfToday, null);
 
         setCommonTaskPanel(taskPanel);
 
@@ -108,7 +108,7 @@ public class TimelordTabbedPane extends JTabbedPane
         this.dateOfToday = DateUtil.trunc(new Date());
         // timelordTabbedPane.setCo
         CommonTaskPanel taskPanel =
-            new CommonTaskPanel(timelordData, dateOfToday);
+            new CommonTaskPanel(timelordData, dateOfToday, null);
 
         this.setCommonTaskPanel(taskPanel);
         this.add(taskPanel, 0);

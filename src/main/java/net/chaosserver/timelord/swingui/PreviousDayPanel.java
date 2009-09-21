@@ -86,6 +86,15 @@ public class PreviousDayPanel extends JPanel implements ActionListener {
     }
 
     /**
+     * Returns the CommonTaskPanel in this view.
+     *
+     * @return the the task panel being displayed
+     */
+    public CommonTaskPanel getCommonTaskPanel() {
+        return this.commonTaskPanel;
+    }
+
+    /**
      * Setting the display causes the panel to dispose of whatever is currently
      * being displayed and construct a new commonTaskPanel with the new date.
      *
@@ -105,7 +114,7 @@ public class PreviousDayPanel extends JPanel implements ActionListener {
         }
 
         commonTaskPanel =
-            new CommonTaskPanel(this.timelordData, displayDate);
+            new CommonTaskPanel(this.timelordData, displayDate, null);
 
         this.add(commonTaskPanel, BorderLayout.CENTER);
         this.doLayout();

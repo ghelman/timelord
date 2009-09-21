@@ -17,6 +17,7 @@ along with Timelord.  If not, see <http://www.gnu.org/licenses/>.
 */
 package net.chaosserver.timelord.swingui;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Image;
@@ -558,6 +559,23 @@ public class Timelord {
 
         // TODO: If the today tab is not today, notify the user.
     }
+
+    /**
+     * Sets the keyboard focus on the find filter of the current tab.
+     */
+    public void showFindTask() {
+        Component selectedComponent = timelordTabbedPane.getSelectedComponent();
+        if(selectedComponent instanceof CommonTaskPanel) {
+            ((CommonTaskPanel) selectedComponent).showFindTask();
+        } else if (selectedComponent instanceof PreviousDayPanel) {
+            CommonTaskPanel commonTaskPanel =
+                ((PreviousDayPanel) selectedComponent).getCommonTaskPanel();
+
+            commonTaskPanel.showFindTask();
+        }
+
+    }
+
 
     /**
      * Shows the about dialog that tells about the application.

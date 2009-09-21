@@ -32,7 +32,18 @@
     </category>
     -->
 
+	<!--
     <category name="net.chaosserver.timelord.swingui.SwingUtil" additivity="false">
+        <priority value="all"/>
+        <appender-ref ref="STDOUT"/>
+    </category>
+    -->
+
+    <category name="net.chaosserver.timelord.swingui.FindTaskDialog" additivity="false">
+        <priority value="all"/>
+        <appender-ref ref="STDOUT"/>
+    </category>
+    <category name="net.chaosserver.timelord.swingui.CommonTaskPanel" additivity="false">
         <priority value="all"/>
         <appender-ref ref="STDOUT"/>
     </category>

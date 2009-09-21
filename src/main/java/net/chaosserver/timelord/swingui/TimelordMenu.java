@@ -25,9 +25,9 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.log4j.lf5.DefaultLF5Configurator;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.io.IOException;
@@ -95,6 +95,10 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
     /** Action Event for adding time to a Task. */
     public static final String ACTION_ADDTIME =
         TimelordMenu.class.getName() + ".ACTION_ADDTIME";
+
+    /** Action Event for finding a Task. */
+    public static final String ACTION_FINDTASK =
+        TimelordMenu.class.getName() + ".ACTION_FINDTASK";
 
     /** Action Event for Sorting the List. */
     public static final String ACTION_SORT =
@@ -178,6 +182,7 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
 
+
         JMenu exportMenu = new JMenu(
                 resourceBundle.getString(RROOT + ".file.export"));
         exportMenu.setMnemonic(KeyEvent.VK_A);
@@ -255,7 +260,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         menuItem = new JMenuItem("Refresh View", KeyEvent.VK_R);
         menuItem.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK)
+            KeyStroke.getKeyStroke(KeyEvent.VK_R,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
         );
         menuItem.setActionCommand(ACTION_REFRESH_VIEW);
         menuItem.addActionListener(this);
@@ -289,9 +295,10 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
         taskMenu.setMnemonic(KeyEvent.VK_T);
         this.add(taskMenu);
 
-        menuItem = new JMenuItem("Add Task", KeyEvent.VK_T);
+        menuItem = new JMenuItem("New Task", KeyEvent.VK_N);
         menuItem.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK)
+            KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
         );
         menuItem.setActionCommand(ACTION_ADDTASK);
         menuItem.addActionListener(this);
@@ -299,7 +306,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         menuItem = new JMenuItem("Hide Old Tasks", KeyEvent.VK_H);
         menuItem.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK)
+            KeyStroke.getKeyStroke(KeyEvent.VK_H,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
         );
         menuItem.setActionCommand(ACTION_HIDETASK);
         menuItem.addActionListener(this);
@@ -307,7 +315,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         menuItem = new JMenuItem("Unhide Task", KeyEvent.VK_U);
         menuItem.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK)
+            KeyStroke.getKeyStroke(KeyEvent.VK_U,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
         );
         menuItem.setActionCommand(ACTION_UNHIDETASK);
         menuItem.addActionListener(this);
@@ -317,9 +326,19 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         menuItem = new JMenuItem("Add Time", KeyEvent.VK_A);
         menuItem.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK)
+            KeyStroke.getKeyStroke(KeyEvent.VK_A,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
         );
         menuItem.setActionCommand(ACTION_ADDTIME);
+        menuItem.addActionListener(this);
+        taskMenu.add(menuItem);
+
+        menuItem = new JMenuItem("Find Task", KeyEvent.VK_F);
+        menuItem.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_F,
+                    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
+        );
+        menuItem.setActionCommand(ACTION_FINDTASK);
         menuItem.addActionListener(this);
         taskMenu.add(menuItem);
 
@@ -339,7 +358,8 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
 
         menuItem = new JMenuItem("Help Topics", KeyEvent.VK_H);
         menuItem.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK)
+            KeyStroke.getKeyStroke(KeyEvent.VK_H,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
         );
 
         try {
@@ -447,6 +467,10 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
                 );
         } else if (ACTION_ADDTASK.equals(evt.getActionCommand())) {
             timelord.getCommonTaskPanel().showAddTaskDialog();
+        } else if (ACTION_FINDTASK.equals(evt.getActionCommand())) {
+            // TODO: Find task on historical panel if that frame is
+            // forward
+            timelord.showFindTask();
         } else if (ACTION_HIDETASK.equals(evt.getActionCommand())) {
             timelord.getCommonTaskPanel().showHideTaskDialog();
         } else if (ACTION_UNHIDETASK.equals(evt.getActionCommand())) {
