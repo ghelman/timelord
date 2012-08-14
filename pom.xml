@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <!-- The Basics -->
   <groupId>net.chaosserver.timelord</groupId>
   <artifactId>timelord</artifactId>
-  <version id="pomversion">2.5</version>
+  <version id="pomversion">2.6</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
