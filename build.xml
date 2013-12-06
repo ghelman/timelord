@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Timelord" default="bundle" basedir=".">
+  <property environment="env" />
+
+  <property name="library.root" value="${user.home}/.m2/repository"/>
+  <property name="app.version" value="2.7" />
+  <property name="app.name" value="Timelord" />
+  <property name="app.mainclass" value="net.chaosserver.timelord.swingui.Timelord" />
+  <property name="app.icons" value="src/main/resources/timelord.icns" />
+
+  <target name="bundle">
+    <mkdir dir="target"/>
+    <mkdir dir="target/lib" />
+    <copy file="target/timelord-${app.version}.jar" todir="target/lib"/>
+
+  <taskdef name="bundleapp"
+         classname="com.oracle.appbundler.AppBundlerTask"
+         classpath="src/lib/appbundler-1.0.jar" />
+
+    <copy todir="target/lib">
+       <fileset dir="${library.root}" includes="**/commons-logging-1.1.1.jar" />
+       <fileset dir="${library.root}" includes="**/javahelp-2.0.02.jar" />
+       <fileset dir="${library.root}" includes="**/jcalendar-1.3.2.jar" />
+       <fileset dir="${library.root}" includes="**/jcommon-1.0.12.jar" />
+       <fileset dir="${library.root}" includes="**/jfreechart-1.0.9.jar" />
+       <fileset dir="${library.root}" includes="**/log4j-1.2.9.jar" />
+       <fileset dir="${library.root}" includes="**/poi-3.0.1-FINAL.jar" />
+    </copy>
+
+    <!-- https://java.net/downloads/appbundler/appbundler.html -->
+    <bundleapp outputdirectory="target"
+        name="${app.name}"
+        displayname="${app.name}"
+        identifier="${app.mainclass}"
+        icon="${app.icons}"
+        mainclassname="${app.mainclass}" >
+
+        <!-- runtime dir="${env.JAVA_HOME}" / -->
+        <classpath dir="target/lib" />
+        <option value="-Dapple.laf.useScreenMenuBar=true"/>
+        <option value="-Dapple.awt.brushMetalLook=true"/>
+    </bundleapp>
+
+
+    <replaceregexp file="target/${app.name}.app/Contents/Info.plist"
+               match="&lt;/dict&gt;"
+               replace="&lt;key&gt;NSHighResolutionCapable&lt;/key&gt;&lt;true/&gt;&lt;/dict&gt;"
+               byline="true"
+    />
+  </target>
+</project>
