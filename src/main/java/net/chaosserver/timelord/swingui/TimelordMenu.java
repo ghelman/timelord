@@ -140,6 +140,16 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
     public static final String ACTION_CHANGE_ANNOY =
         TimelordMenu.class.getName() + ".ACTION_CHANGE_ANNOY";
 
+    /** Action Event for Changing to the previous tab */
+    public static final String ACTION_PREVIOUS_TAB =
+        TimelordMenu.class.getName() + ".ACTION_PREVIOUS_TAB";
+
+    /** Action Event for Changing to the next tab */
+    public static final String ACTION_NEXT_TAB =
+        TimelordMenu.class.getName() + ".ACTION_NEXT_TAB";
+        
+        
+
 
     /** The checkbox item for Jordan Annoyance Mode. */
     protected JCheckBoxMenuItem annoyanceJordanCheckbox;
@@ -280,6 +290,27 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
         menuItem.setActionCommand(ACTION_CHANGE_ANNOY);
         menuItem.addActionListener(this);
         viewMenu.add(menuItem);
+
+        viewMenu.addSeparator();
+
+        menuItem = new JMenuItem("Select Previous Tab", KeyEvent.VK_BRACELEFT);
+        menuItem.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_BRACELEFT,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
+        );
+        menuItem.setActionCommand(ACTION_PREVIOUS_TAB);
+        menuItem.addActionListener(this);
+        viewMenu.add(menuItem);
+
+        menuItem = new JMenuItem("Select Next Tab", KeyEvent.VK_BRACERIGHT);
+        menuItem.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_BRACERIGHT,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())
+        );
+        menuItem.setActionCommand(ACTION_NEXT_TAB);
+        menuItem.addActionListener(this);
+        viewMenu.add(menuItem);
+
 
         return viewMenu;
     }
@@ -498,6 +529,10 @@ public class TimelordMenu extends JMenuBar implements ActionListener {
             timelord.changeStartTime(false);
         } else if(ACTION_CHANGE_ANNOY.equals(evt.getActionCommand())) {
             timelord.changeAnnoyTime();
+        } else if(ACTION_NEXT_TAB.equals(evt.getActionCommand())) {
+            timelord.showNextTab();
+        } else if(ACTION_PREVIOUS_TAB.equals(evt.getActionCommand())) {
+            timelord.showPreviousTab();
         } else if (evt.getSource().equals(annoyanceJordanCheckbox)) {
             timelord.setAnnoyanceMode(Timelord.ANNOYANCE_JORDAN);
             updateAnnoyanceButtons();

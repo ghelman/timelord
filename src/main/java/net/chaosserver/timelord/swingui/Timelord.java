@@ -670,6 +670,25 @@ public class Timelord {
     }
 
     /**
+     * Switches to the next tab
+     */
+    public void showNextTab() {
+        int nextSelectedTab = (timelordTabbedPane.getSelectedIndex() + 1) % timelordTabbedPane.getTabCount();
+        if(nextSelectedTab < 0) {
+            nextSelectedTab = 0;
+        }
+        timelordTabbedPane.setSelectedIndex(nextSelectedTab);
+    }
+
+    /**
+     * Switches to the previous tab
+     */
+    public void showPreviousTab() {
+        int nextSelectedTab = (timelordTabbedPane.getSelectedIndex() - 1) % timelordTabbedPane.getTabCount();
+        timelordTabbedPane.setSelectedIndex(nextSelectedTab);
+    }
+
+    /**
      * Sets the keyboard focus on the find filter of the current tab.
      */
     public void showFindTask() {
