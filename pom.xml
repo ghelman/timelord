@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <!-- The Basics -->
   <groupId>net.chaosserver.timelord</groupId>
   <artifactId>timelord</artifactId>
-  <version id="pomversion">2.7</version>
+  <version id="pomversion">2.71</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -97,6 +97,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </configuration> 
           </execution>
          </executions>
+      </plugin>
+      <!-- This isn't working yet, not sure why. -->
+      <plugin>
+        <groupId>io.github.appbundler</groupId>
+        <artifactId>appbundle-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <configuration>
+          <mainClass>net.chaosserver.timelord.swingui.Timelord</mainClass>
+          <dictionaryFile>Info.plist</dictionaryFile>
+          <iconFile>${basedir}/src/main/resources/timelord.icns</iconFile>
+          <!-- javaApplicationStub>${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub -->
+          <jvmVersion>1.5+</jvmVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>bundle</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <!-- The following osxappbundle task was used to create the OSX App Bundle
            for up to Java 1.6.  As of OSX Mountain Lion, most people are using

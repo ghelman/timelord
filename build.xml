@@ -3,7 +3,7 @@
   <property environment="env" />
 
   <property name="library.root" value="${user.home}/.m2/repository"/>
-  <property name="app.version" value="2.7" />
+  <property name="app.version" value="2.71" />
   <property name="app.name" value="Timelord" />
   <property name="app.mainclass" value="net.chaosserver.timelord.swingui.Timelord" />
   <property name="app.icons" value="src/main/resources/timelord.icns" />
