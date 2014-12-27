@@ -16,3 +16,9 @@ doing. Once you save it, it will go away for 15m. That's it.
 
 At the end of the week, export your data in Excel and upload it or copy-paste it into
 your corporate time tracking solution.
+
+# Downloads
+
+The latest release is available in releases:
+* v2.71 for OSX - https://github.com/chanomie/timelord/releases/download/2.71/Timelord-2.71.dmg
+* v.25 for Windows - https://github.com/chanomie/timelord/releases/download/2.71/Timelord-2.5.zip
