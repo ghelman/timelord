@@ -4,6 +4,8 @@ A simple client application to capture time tracking information on your local s
 
 # Overview
 
+See the fancier marketing page: http://chanomie.github.io/timelord/
+
 The basic idea is that everyone hates time tracking. The moment you start working in a
 job that has a lot of randomization and a lot of time tracking, nearly all the major
 tools out there are too burdensome to use. If you are not tracking your time every
