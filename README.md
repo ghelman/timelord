@@ -17,6 +17,14 @@ doing. Once you save it, it will go away for 15m. That's it.
 At the end of the week, export your data in Excel and upload it or copy-paste it into
 your corporate time tracking solution.
 
+# Build
+
+The project is build using Maven:
+`mvn package`
+
+The OSX Bundle is built using the Oracle Bundler Ant Task:
+`ant bundle`
+
 # Downloads
 
 The latest release is available in releases:
